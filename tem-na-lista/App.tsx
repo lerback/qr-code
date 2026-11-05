@@ -6,6 +6,9 @@ export default function App() {
   const [facing, setFacing] = useState<CameraType>('back');
   const [permission, requestPermission] = useCameraPermissions();
 
+  const [leitura, setLeitura] = useState(false);
+  const [codigoBarra, setCodigoBarra] = useState('');
+
   if (!permission) {
     // Camera permissions are still loading.
     return <View />;
@@ -25,15 +28,40 @@ export default function App() {
     setFacing(current => (current === 'back' ? 'front' : 'back'));
   }
 
-  function onScanner(resultado:BarcodeScanningResult){
-    console.log(resultado.data)
+  function abrirCamera() {
+    setLeitura(false)
+    setCodigoBarra('')
+  }
+
+  function onScanner(resultado: BarcodeScanningResult) {
+
+    if (leitura) {
+      return
+    }
+
+    if (resultado.data) {
+      setLeitura(true)
+      console.log(resultado.data)
+      setCodigoBarra(resultado.data)
+
+    }
   }
 
 
-  
+  if (leitura) {
+    return (
+      <View style={styles.container}>
+
+        <Text> {codigoBarra} </Text>
+        <TouchableOpacity style={styles.button} onPress={abrirCamera}><Text>abrir camera uou</Text></TouchableOpacity>
+      </View>
+    )
+  }
+
+
   return (
     <View style={styles.container}>
-      <CameraView style={styles.camera}  onBarcodeScanned={onScanner} />
+      <CameraView style={styles.camera} onBarcodeScanned={onScanner} />
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
           <Text style={styles.text}>Flip Camera</Text>
