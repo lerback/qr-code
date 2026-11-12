@@ -58,7 +58,7 @@ export default function App() {
         setCodigoBarra('Produto encontrado!' + "\n" + produtoEncontrado.nome + "\nR$ " + produtoEncontrado.preco)
 
       } else{
-        setCodigoBarra('Produto NÃO encontrado! :( ' + "\n" + 'Tente novamente!' + "\n" + resultado.data)
+        setCodigoBarra ('Produto NÃO encontrado! :( ' + "\n" + 'Tente novamente!' + "\n" + resultado.data)
         
 
       }
@@ -73,6 +73,7 @@ export default function App() {
 
        <View>
          <Text> {codigoBarra} </Text>
+         <p style = {{ color: 'black', f}}> Leia seu código de barra! </p>
         <TouchableOpacity style={styles.button}
          onPress={abrirCamera}>
           <Text>abrir camera uou</Text>
@@ -102,11 +103,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor:'red'
+    backgroundColor:'white'
   },
   message: {
+    fontSize: 20,
     textAlign: 'center',
-    paddingBottom: 10,
+    paddingBottom: 20,
+    fontFamily: 'sans-serif',
+     padding: 14,
   },
   camera: {
     flex: 1,
@@ -121,11 +125,13 @@ const styles = StyleSheet.create({
   },
   button: {
     height:40,
-    backgroundColor:'#fff'
+    backgroundColor:'#74539e',
+    fontSize: 20,
   },
   text: {
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
   },
+  
 });
