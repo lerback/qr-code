@@ -1,4 +1,4 @@
-import { Produto } from '../interfaces/Produto';
+import { Produto } from './dados/Produtos';
 
 export const PRODUTOS: Produto[] = [
   { codigo: '7899876000015', nome: 'Arroz Branco Tipo 1 - 5 kg', preco: 27.90 },

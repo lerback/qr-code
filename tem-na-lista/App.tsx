@@ -2,11 +2,14 @@ import { CameraView, CameraType, useCameraPermissions, BarcodeScanningResult } f
 import { useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import {PRODUTOS} from './interfaces/ListaProdutos'
+import { Produto } from './interfaces/dados/Produtos';
+
 export default function App() {
   const [facing, setFacing] = useState<CameraType>('back');
   const [permission, requestPermission] = useCameraPermissions();
 
-  const [leitura, setLeitura] = useState(false);
+  const [leitura, setLeitura] = useState(true);
   const [codigoBarra, setCodigoBarra] = useState('');
 
   if (!permission) {
@@ -41,9 +44,25 @@ export default function App() {
 
     if (resultado.data) {
       setLeitura(true)
-      console.log(resultado.data)
-      setCodigoBarra(resultado.data)
+      
+      const produtoEncontrado = PRODUTOS.find(
+        function(produto: Produto){
+          if (produto.codigo == resultado.data){
+              return true
+          } 
+          return false
+        }
+      )
 
+      if (produtoEncontrado){
+        setCodigoBarra('Produto encontrado!' + "\n" + produtoEncontrado.nome + "\nR$ " + produtoEncontrado.preco)
+
+      } else{
+        setCodigoBarra('Produto NÃO encontrado! :( ' + "\n" + 'Tente novamente!' + "\n" + resultado.data)
+        
+
+      }
+    
     }
   }
 
@@ -52,8 +71,13 @@ export default function App() {
     return (
       <View style={styles.container}>
 
-        <Text> {codigoBarra} </Text>
-        <TouchableOpacity style={styles.button} onPress={abrirCamera}><Text>abrir camera uou</Text></TouchableOpacity>
+       <View>
+         <Text> {codigoBarra} </Text>
+        <TouchableOpacity style={styles.button}
+         onPress={abrirCamera}>
+          <Text>abrir camera uou</Text>
+          </TouchableOpacity>
+       </View>
       </View>
     )
   }
@@ -63,9 +87,9 @@ export default function App() {
     <View style={styles.container}>
       <CameraView style={styles.camera} onBarcodeScanned={onScanner} />
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
+        {/* <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
           <Text style={styles.text}>Flip Camera</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   );
@@ -78,6 +102,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor:'red'
   },
   message: {
     textAlign: 'center',
@@ -90,13 +115,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 64,
     flexDirection: 'row',
-    backgroundColor: 'transparent',
+    backgroundColor: '#000',
     width: '100%',
     paddingHorizontal: 64,
   },
   button: {
-    flex: 1,
-    alignItems: 'center',
+    height:40,
+    backgroundColor:'#fff'
   },
   text: {
     fontSize: 24,
