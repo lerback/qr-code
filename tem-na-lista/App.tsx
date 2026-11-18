@@ -70,10 +70,10 @@ export default function App() {
   if (leitura) {
     return (
       <View style={styles.container}>
-
+        <Text style ={styles.title}> Verifique seu código de barra! ;) </Text>
+        
        <View>
          <Text> {codigoBarra} </Text>
-         <p style = {{ color: 'black', f}}> Leia seu código de barra! </p>
         <TouchableOpacity style={styles.button}
          onPress={abrirCamera}>
           <Text>abrir camera uou</Text>
@@ -86,11 +86,10 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      
       <CameraView style={styles.camera} onBarcodeScanned={onScanner} />
       <View style={styles.buttonContainer}>
-        {/* <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-          <Text style={styles.text}>Flip Camera</Text>
-        </TouchableOpacity> */}
+        
       </View>
     </View>
   );
@@ -103,8 +102,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor:'white'
+    alignItems: 'center',
+    backgroundColor: '#CBC3E3',
+    padding: 20,
   },
+
+  title: {
+    fontSize: 18,
+    marginBottom: 20,
+  },
+
   message: {
     fontSize: 20,
     textAlign: 'center',
@@ -124,9 +131,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 64,
   },
   button: {
-    height:40,
-    backgroundColor:'#74539e',
-    fontSize: 20,
+   width: '60%',
+    height: 50,
+    backgroundColor: '#754aa7bb',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 25,
+    marginBottom: 20,
   },
   text: {
     fontSize: 24,
