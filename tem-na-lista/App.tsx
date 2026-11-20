@@ -121,6 +121,8 @@ const styles = StyleSheet.create({
   },
   camera: {
     flex: 1,
+      alignSelf: 'stretch',
+
   },
   buttonContainer: {
     position: 'absolute',
